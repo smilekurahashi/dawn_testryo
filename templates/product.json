@@ -112,6 +112,55 @@
         "padding_bottom": 12
       }
     },
+    "custom_product_story": {
+      "type": "custom-product-story",
+      "settings": {
+        "lead": "七十年受け継がれる、一品の物語",
+        "heading": "この一品について",
+        "body": "<p>戦後間もない昭和三十年、一軒の小さな精肉店として始まりました。以来七十年、お客様の食卓に確かな一品をお届けすることだけを考え続けてまいりました。<\/p>",
+        "layout": "vertical",
+        "vertical_text": false,
+        "bg_color": "paper",
+        "padding_size": "normal"
+      }
+    },
+    "custom_craftsmanship": {
+      "type": "custom-craftsmanship",
+      "blocks": {
+        "block_meeting": {
+          "type": "craft_item",
+          "settings": {
+            "symbol": "壱",
+            "title": "目利き",
+            "description": "市場に通い続けて七十年。確かな目で、その日最良の一品を選び抜きます。"
+          }
+        },
+        "block_aging": {
+          "type": "craft_item",
+          "settings": {
+            "symbol": "弐",
+            "title": "熟成",
+            "description": "温度と湿度を見極め、肉本来の旨味を最大限に引き出します。一日たりとも気を抜きません。"
+          }
+        },
+        "block_cutting": {
+          "type": "craft_item",
+          "settings": {
+            "symbol": "参",
+            "title": "手切り",
+            "description": "機械では決して再現できない繊細な仕事。一切れ一切れ、手で切り分けます。"
+          }
+        }
+      },
+      "block_order": [
+        "block_meeting",
+        "block_aging",
+        "block_cutting"
+      ],
+      "settings": {
+        "heading": "職人の手仕事"
+      }
+    },
     "image-with-text": {
       "type": "image-with-text",
       "blocks": {
@@ -209,6 +258,8 @@
   },
   "order": [
     "main",
+    "custom_product_story",
+    "custom_craftsmanship",
     "image-with-text",
     "multicolumn",
     "related-products"
