@@ -146,6 +146,268 @@
 .custom-heritage-bar--tracking-extra  .custom-heritage-bar__text { letter-spacing: 0.3em; }
 
 
+/* === custom-product-story === */
+.custom-product-story {
+  font-family: var(--custom-font-mincho);
+  color: var(--custom-color-text);
+  line-height: var(--custom-line-height-relaxed);
+  position: relative;
+}
+
+/* 上下に和紙風の薄い罫線 */
+.custom-product-story::before,
+.custom-product-story::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background:
+    linear-gradient(
+      to right,
+      transparent 0,
+      var(--custom-color-gold) 20%,
+      var(--custom-color-gold) 80%,
+      transparent 100%
+    );
+  opacity: 0.35;
+}
+
+.custom-product-story--bg-base        { background-color: var(--custom-color-base); }
+.custom-product-story--bg-paper       { background-color: #EFE8DA; }
+.custom-product-story--bg-transparent { background-color: transparent; }
+
+.custom-product-story--padding-normal { padding-block: 3rem; }
+.custom-product-story--padding-wide   { padding-block: var(--custom-spacing-section-mobile); }
+.custom-product-story--padding-extra  { padding-block: var(--custom-spacing-section-mobile); }
+
+@media screen and (min-width: 768px) {
+  .custom-product-story--padding-normal { padding-block: 4rem; }
+  .custom-product-story--padding-wide   { padding-block: var(--custom-spacing-section); }
+  .custom-product-story--padding-extra  { padding-block: calc(var(--custom-spacing-section) * 1.5); }
+}
+
+.custom-product-story__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+@media screen and (min-width: 768px) {
+  .custom-product-story--horizontal .custom-product-story__inner {
+    flex-direction: row;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .custom-product-story--horizontal .custom-product-story__text {
+    flex: 1 1 50%;
+  }
+
+  .custom-product-story--horizontal .custom-product-story__figure {
+    flex: 1 1 50%;
+    margin: 0;
+  }
+}
+
+.custom-product-story__lead {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  letter-spacing: var(--custom-letter-spacing-wide);
+  color: var(--custom-color-gold);
+}
+
+.custom-product-story__heading {
+  margin: 0 0 1.5rem;
+  font-family: var(--custom-font-mincho);
+  font-size: 1.75rem;
+  letter-spacing: var(--custom-letter-spacing-wide);
+  color: var(--custom-color-primary);
+  line-height: 1.5;
+}
+
+@media screen and (min-width: 768px) {
+  .custom-product-story__heading {
+    font-size: 2.25rem;
+  }
+}
+
+.custom-product-story__body {
+  font-size: 1rem;
+  line-height: 2.0;
+  color: var(--custom-color-text);
+}
+
+.custom-product-story__body > * + * {
+  margin-top: 1.25em;
+}
+
+.custom-product-story__body--vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-feature-settings: "pkna" 1, "palt" 1;
+  max-height: 26em;
+  margin-inline: auto;
+}
+
+.custom-product-story__figure {
+  margin: 0;
+}
+
+.custom-product-story__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.custom-product-story__caption {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--custom-color-text-muted);
+  letter-spacing: var(--custom-letter-spacing-wide);
+  text-align: center;
+}
+
+
+/* === custom-craftsmanship === */
+.custom-craftsmanship {
+  font-family: var(--custom-font-mincho);
+  color: var(--custom-color-text);
+  line-height: var(--custom-line-height-relaxed);
+  padding-block: var(--custom-spacing-section-mobile);
+}
+
+@media screen and (min-width: 768px) {
+  .custom-craftsmanship {
+    padding-block: var(--custom-spacing-section);
+  }
+}
+
+.custom-craftsmanship--bg-base        { background-color: var(--custom-color-base); }
+.custom-craftsmanship--bg-paper       { background-color: #EFE8DA; }
+.custom-craftsmanship--bg-accent {
+  background-color: var(--custom-color-accent);
+  color: var(--custom-color-base);
+}
+.custom-craftsmanship--bg-accent .custom-craftsmanship__heading,
+.custom-craftsmanship--bg-accent .custom-craftsmanship__item-title {
+  color: var(--custom-color-gold);
+}
+.custom-craftsmanship--bg-accent .custom-craftsmanship__description {
+  color: var(--custom-color-base);
+}
+.custom-craftsmanship--bg-transparent { background-color: transparent; }
+
+.custom-craftsmanship__heading {
+  margin: 0 0 2.5rem;
+  font-size: 1.75rem;
+  text-align: center;
+  letter-spacing: var(--custom-letter-spacing-wide);
+  color: var(--custom-color-primary);
+  line-height: 1.5;
+}
+
+@media screen and (min-width: 768px) {
+  .custom-craftsmanship__heading {
+    font-size: 2.25rem;
+    margin-bottom: 3.5rem;
+  }
+}
+
+.custom-craftsmanship__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .custom-craftsmanship__list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    align-items: stretch;
+  }
+
+  .custom-craftsmanship--count-2 .custom-craftsmanship__list {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 60rem;
+    margin-inline: auto;
+  }
+
+  .custom-craftsmanship--count-1 .custom-craftsmanship__list {
+    grid-template-columns: 1fr;
+    max-width: 32rem;
+    margin-inline: auto;
+  }
+}
+
+.custom-craftsmanship__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 1rem;
+  position: relative;
+}
+
+/* 区切り線：縦線（横並び時のみ） */
+@media screen and (min-width: 768px) {
+  .custom-craftsmanship--divider-vertical .custom-craftsmanship__item + .custom-craftsmanship__item::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block: 1rem;
+    width: 1px;
+    background-color: var(--custom-color-gold);
+    opacity: 0.35;
+  }
+
+  .custom-craftsmanship--divider-ornament .custom-craftsmanship__item + .custom-craftsmanship__item::before {
+    content: "❖";
+    position: absolute;
+    inset-inline-start: -0.5rem;
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    color: var(--custom-color-gold);
+    opacity: 0.6;
+    font-size: 0.85rem;
+  }
+}
+
+.custom-craftsmanship__symbol {
+  display: inline-block;
+  font-family: var(--custom-font-mincho);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--custom-color-gold);
+  margin-bottom: 1.25rem;
+  letter-spacing: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .custom-craftsmanship__symbol {
+    font-size: 3.75rem;
+  }
+}
+
+.custom-craftsmanship__item-title {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  letter-spacing: var(--custom-letter-spacing-wide);
+  color: var(--custom-color-primary);
+}
+
+.custom-craftsmanship__description {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.95;
+  color: var(--custom-color-text);
+  max-width: 22rem;
+}
+
+
 /* === custom-shop-info === */
 .custom-shop-info {
   font-family: var(--custom-font-mincho);

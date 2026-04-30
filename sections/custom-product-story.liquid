@@ -1,0 +1,149 @@
+{% comment %}
+  custom-product-story.liquid
+  --------------------------------------------------------------------------
+  商品の物語を語るセクション。
+  リード文 → 見出し → 本文 → 画像 → キャプション の縦構成。
+  schemaのlayoutで横並びにも切替可能（モバイル時は強制vertical）。
+{% endcomment %}
+
+{%- liquid
+  assign layout_class = 'custom-product-story--' | append: section.settings.layout
+  assign bg_class = 'custom-product-story--bg-' | append: section.settings.bg_color
+  assign padding_class = 'custom-product-story--padding-' | append: section.settings.padding_size
+  assign body_class = 'custom-product-story__body'
+  if section.settings.vertical_text
+    assign body_class = body_class | append: ' custom-product-story__body--vertical'
+  endif
+-%}
+
+<section
+  class="custom-product-story {{ layout_class }} {{ bg_class }} {{ padding_class }}"
+  aria-labelledby="CustomProductStoryHeading-{{ section.id }}"
+>
+  <div class="custom-product-story__inner page-width">
+    <div class="custom-product-story__text">
+      {%- if section.settings.lead != blank -%}
+        <p class="custom-product-story__lead">{{ section.settings.lead | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2
+          id="CustomProductStoryHeading-{{ section.id }}"
+          class="custom-product-story__heading"
+        >
+          {{ section.settings.heading | escape }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="{{ body_class }}">
+          {{ section.settings.body }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.image != blank -%}
+      <figure class="custom-product-story__figure">
+        {{
+          section.settings.image
+          | image_url: width: 1600
+          | image_tag:
+            loading: 'lazy',
+            sizes: '(min-width: 768px) 50vw, 100vw',
+            widths: '400, 600, 800, 1200, 1600',
+            class: 'custom-product-story__image',
+            alt: section.settings.image.alt | default: section.settings.heading
+        }}
+        {%- if section.settings.caption != blank -%}
+          <figcaption class="custom-product-story__caption">
+            {{ section.settings.caption | escape }}
+          </figcaption>
+        {%- endif -%}
+      </figure>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Story",
+  "tag": "section",
+  "class": "custom-product-story-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "lead",
+      "label": "リード文",
+      "default": "七十年受け継がれる、一品の物語"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "見出し",
+      "default": "この一品について"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "本文",
+      "default": "<p>創業以来変わらぬ目利きで選び抜いた素材を、職人が丁寧に仕立てます。一品ごとに込められた手仕事の物語を、ぜひお楽しみください。</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "画像（職人写真など）"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "画像キャプション"
+    },
+    {
+      "type": "radio",
+      "id": "layout",
+      "label": "レイアウト",
+      "options": [
+        { "value": "horizontal", "label": "横並び（画像右・テキスト左）" },
+        { "value": "vertical", "label": "縦積み（テキスト→画像）" }
+      ],
+      "default": "vertical"
+    },
+    {
+      "type": "checkbox",
+      "id": "vertical_text",
+      "label": "本文を縦書きで表示",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "背景色",
+      "options": [
+        { "value": "base", "label": "オフホワイト" },
+        { "value": "paper", "label": "和紙風ベージュ" },
+        { "value": "transparent", "label": "透明" }
+      ],
+      "default": "paper"
+    },
+    {
+      "type": "select",
+      "id": "padding_size",
+      "label": "上下余白",
+      "options": [
+        { "value": "normal", "label": "標準" },
+        { "value": "wide", "label": "広め" },
+        { "value": "extra", "label": "とても広い" }
+      ],
+      "default": "normal"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Story"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product", "page", "index"]
+  }
+}
+{% endschema %}
