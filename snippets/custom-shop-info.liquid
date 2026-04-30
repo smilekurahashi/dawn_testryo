@@ -1,0 +1,64 @@
+{% comment %}
+  custom-shop-info.liquid
+  --------------------------------------------------------------------------
+  店舗情報を表示する汎用スニペット。フッター・Aboutページ等で再利用想定。
+
+  Parameters:
+    layout        : 'horizontal' | 'vertical'  (default: 'horizontal')
+    show_founded  : true | false                (default: true)
+    show_address  : true | false                (default: true)
+    show_phone    : true | false                (default: true)
+
+  Usage:
+    {% render 'custom-shop-info' %}
+    {% render 'custom-shop-info', layout: 'vertical', show_phone: false %}
+{% endcomment %}
+
+{%- liquid
+  assign info_layout = layout | default: 'horizontal'
+
+  if show_founded == nil
+    assign show_founded = true
+  endif
+  if show_address == nil
+    assign show_address = true
+  endif
+  if show_phone == nil
+    assign show_phone = true
+  endif
+-%}
+
+{%- comment %} TODO: 後でテーマ設定から取得できるように差し替え {% endcomment -%}
+{%- assign founded_year = '1955' -%}
+{%- assign founded_year_kanji = '昭和三十年' -%}
+{%- assign shop_address = '東京都〇〇区〇〇 1-2-3' -%}
+{%- assign shop_phone = '03-1234-5678' -%}
+
+<div
+  class="custom-shop-info custom-shop-info--{{ info_layout }}"
+  role="contentinfo"
+  aria-label="店舗情報"
+>
+  {%- if show_founded -%}
+    <div class="custom-shop-info__item custom-shop-info__founded">
+      <span class="custom-shop-info__label">創業</span>
+      <span class="custom-shop-info__value">{{ founded_year_kanji }}（{{ founded_year }}年）</span>
+    </div>
+  {%- endif -%}
+
+  {%- if show_address -%}
+    <div class="custom-shop-info__item custom-shop-info__address">
+      <span class="custom-shop-info__label">所在地</span>
+      <span class="custom-shop-info__value">{{ shop_address }}</span>
+    </div>
+  {%- endif -%}
+
+  {%- if show_phone -%}
+    <div class="custom-shop-info__item custom-shop-info__phone">
+      <span class="custom-shop-info__label">電話</span>
+      <a class="custom-shop-info__value" href="tel:{{ shop_phone | replace: '-', '' }}">
+        {{ shop_phone }}
+      </a>
+    </div>
+  {%- endif -%}
+</div>

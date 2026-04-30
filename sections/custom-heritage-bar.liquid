@@ -1,0 +1,141 @@
+{% comment %}
+  custom-heritage-bar.liquid
+  --------------------------------------------------------------------------
+  サイト最上部に表示される細い装飾バー。
+  老舗の風格を出すための和文テキストを中央に表示し、
+  複数項目を登録した場合はpure CSSアニメーションでフェード切替する。
+{% endcomment %}
+
+{%- if section.settings.show_bar and section.blocks.size > 0 -%}
+  {%- liquid
+    assign font_size_class = 'custom-heritage-bar--size-' | append: section.settings.font_size
+    assign tracking_class = 'custom-heritage-bar--tracking-' | append: section.settings.tracking
+    assign duration_total = section.settings.slide_duration | times: section.blocks.size
+  -%}
+
+  <div
+    class="custom-heritage-bar {{ font_size_class }} {{ tracking_class }}"
+    role="region"
+    aria-label="店舗ヘリテージインフォメーション"
+    style="
+      --custom-heritage-bar-bg: {{ section.settings.bg_color }};
+      --custom-heritage-bar-color: {{ section.settings.text_color }};
+      --custom-heritage-bar-duration: {{ duration_total }}s;
+      --custom-heritage-bar-step: {{ section.blocks.size }};
+    "
+  >
+    <div class="custom-heritage-bar__viewport">
+      <ul
+        class="custom-heritage-bar__track custom-heritage-bar__track--count-{{ section.blocks.size }}"
+        aria-live="polite"
+      >
+        {%- for block in section.blocks -%}
+          <li
+            class="custom-heritage-bar__item"
+            aria-label="{{ block.settings.text | escape }}"
+            {{ block.shopify_attributes }}
+          >
+            <span class="custom-heritage-bar__text">{{ block.settings.text }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Heritage Bar",
+  "tag": "aside",
+  "class": "custom-heritage-bar-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_bar",
+      "label": "ヘリテージバーを表示",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#2B1810"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "テキスト色",
+      "default": "#A87F3A"
+    },
+    {
+      "type": "select",
+      "id": "font_size",
+      "label": "フォントサイズ",
+      "options": [
+        { "value": "small", "label": "小" },
+        { "value": "medium", "label": "中" },
+        { "value": "large", "label": "大" }
+      ],
+      "default": "small"
+    },
+    {
+      "type": "select",
+      "id": "tracking",
+      "label": "文字間隔",
+      "options": [
+        { "value": "normal", "label": "標準" },
+        { "value": "wide", "label": "広め" },
+        { "value": "extra", "label": "とても広い" }
+      ],
+      "default": "wide"
+    },
+    {
+      "type": "range",
+      "id": "slide_duration",
+      "label": "スライド切替時間",
+      "unit": "秒",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_item",
+      "name": "テキスト項目",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "表示テキスト",
+          "default": "創業 昭和三十年"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Heritage Bar",
+      "blocks": [
+        {
+          "type": "text_item",
+          "settings": { "text": "創業 昭和三十年" }
+        },
+        {
+          "type": "text_item",
+          "settings": { "text": "七十年の伝統" }
+        },
+        {
+          "type": "text_item",
+          "settings": { "text": "職人の手仕事" }
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "groups": ["*"]
+  }
+}
+{% endschema %}
