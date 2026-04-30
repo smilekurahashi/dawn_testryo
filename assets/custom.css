@@ -1,0 +1,119 @@
+/* ==========================================================================
+   カスタムスタイル集約ファイル
+   --------------------------------------------------------------------------
+   本ファイルはDawn本家との衝突を避けるため、すべてのカスタムCSSを
+   ここに集約する。Dawnの既存CSS（base.css 等）は編集しない。
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. 変数定義（:root）
+   ========================================================================== */
+:root {
+  /* --- カラー --- */
+  --custom-color-primary: #6B2D1F;       /* メイン：深い赤茶 */
+  --custom-color-accent: #2B1810;        /* アクセント：黒に近い濃茶 */
+  --custom-color-base: #F5F1EA;          /* ベース：オフホワイト */
+  --custom-color-gold: #A87F3A;          /* 補助：くすんだ金 */
+  --custom-color-text: #2B1810;          /* 本文テキスト */
+  --custom-color-text-muted: #6B5D54;    /* 補足テキスト */
+
+  /* --- タイポグラフィ --- */
+  --custom-font-mincho: "Yu Mincho", "游明朝", "YuMincho",
+                        "Hiragino Mincho ProN", serif;
+  --custom-font-gothic: "Yu Gothic", "游ゴシック", "YuGothic",
+                        "Hiragino Sans", sans-serif;
+  --custom-letter-spacing-wide: 0.15em;
+  --custom-line-height-relaxed: 2.0;
+
+  /* --- レイアウト --- */
+  --custom-spacing-section: 6rem;
+  --custom-spacing-section-mobile: 3rem;
+}
+
+
+/* ==========================================================================
+   2. 共通スタイル
+   ========================================================================== */
+
+/* --- スニペット: custom-brand-mark（創業年表示） --- */
+.custom-brand-mark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5em;
+  font-family: var(--custom-font-mincho);
+  letter-spacing: var(--custom-letter-spacing-wide);
+  line-height: 1.6;
+}
+
+.custom-brand-mark__label {
+  font-size: 0.85em;
+}
+
+.custom-brand-mark__year {
+  font-weight: 500;
+}
+
+/* サイズバリエーション */
+.custom-brand-mark--small {
+  font-size: 0.85rem;
+}
+
+.custom-brand-mark--medium {
+  font-size: 1rem;
+}
+
+.custom-brand-mark--large {
+  font-size: 1.5rem;
+}
+
+/* カラーバリエーション */
+.custom-brand-mark--gold {
+  color: var(--custom-color-gold);
+}
+
+.custom-brand-mark--primary {
+  color: var(--custom-color-primary);
+}
+
+.custom-brand-mark--base {
+  color: var(--custom-color-base);
+}
+
+/* 配置（ブロック表示でのアラインメント） */
+.custom-brand-mark-wrapper {
+  display: block;
+  width: 100%;
+}
+
+.custom-brand-mark-wrapper--left {
+  text-align: left;
+}
+
+.custom-brand-mark-wrapper--center {
+  text-align: center;
+}
+
+.custom-brand-mark-wrapper--right {
+  text-align: right;
+}
+
+
+/* ==========================================================================
+   3. ユーティリティクラス
+   ========================================================================== */
+.custom-vertical-text {
+  writing-mode: vertical-rl;
+}
+
+.custom-mincho {
+  font-family: var(--custom-font-mincho);
+}
+
+.custom-gothic {
+  font-family: var(--custom-font-gothic);
+}
+
+.custom-text-gold {
+  color: var(--custom-color-gold);
+}
