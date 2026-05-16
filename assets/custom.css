@@ -408,6 +408,170 @@
 }
 
 
+/* === custom-header overrides ===
+   既存 sections/header.liquid のクラスに対する上書き。
+   header.liquid 本体は和風タグライン挿入の1箇所のみ編集（CUSTOMマーカー付き）。
+   ========================================================================== */
+
+/* ヘッダー全体のカラースキーム上書き：和の落ち着いた配色 */
+.header-wrapper {
+  background-color: var(--custom-color-base);
+  color: var(--custom-color-text);
+  border-bottom: 1px solid rgba(168, 127, 58, 0.25); /* 金色を薄く */
+}
+
+/* ロゴ・店名：游明朝で和風に */
+.header__heading,
+.header__heading-link,
+.header__heading .h2,
+.custom-header__shop-name {
+  font-family: var(--custom-font-mincho);
+  letter-spacing: var(--custom-letter-spacing-wide);
+  color: var(--custom-color-primary);
+  font-weight: 500;
+}
+
+.header__heading-link:hover,
+.header__heading-link:focus {
+  color: var(--custom-color-accent);
+}
+
+/* 創業サブテキスト */
+.custom-header__tagline {
+  display: block;
+  margin-top: 0.35em;
+  font-family: var(--custom-font-mincho);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--custom-color-gold);
+  text-align: inherit;
+}
+
+@media screen and (min-width: 750px) {
+  .custom-header__tagline {
+    font-size: 0.75rem;
+  }
+}
+
+/* ナビゲーション（PC）：游ゴシックで和文最適化 */
+.header__inline-menu .list-menu,
+.header__menu-item,
+.header__active-menu-item {
+  font-family: var(--custom-font-gothic);
+  letter-spacing: var(--custom-letter-spacing-wide);
+}
+
+.header__menu-item {
+  color: var(--custom-color-text);
+  font-weight: 500;
+}
+
+.header__menu-item:hover,
+.header__menu-item:focus {
+  color: var(--custom-color-primary);
+  text-decoration-color: var(--custom-color-gold);
+}
+
+.header__active-menu-item {
+  color: var(--custom-color-primary);
+}
+
+/* ドロワー内メニューも同様に */
+.menu-drawer__menu .menu-drawer__menu-item {
+  font-family: var(--custom-font-gothic);
+  letter-spacing: var(--custom-letter-spacing-wide);
+  color: var(--custom-color-text);
+}
+
+/* ヘッダーアイコン（検索・カートなど）の色味を統一 */
+.header__icon {
+  color: var(--custom-color-text);
+}
+
+.header__icon:hover {
+  color: var(--custom-color-primary);
+}
+
+
+/* === custom-shop-info-bar === */
+.custom-shop-info-bar {
+  background-color: var(--custom-shop-info-bar-bg, var(--custom-color-base));
+  color: var(--custom-shop-info-bar-color, var(--custom-color-text));
+  font-family: var(--custom-font-gothic);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  border-block-end: 1px solid rgba(168, 127, 58, 0.2);
+}
+
+@media screen and (min-width: 750px) {
+  .custom-shop-info-bar {
+    font-size: 0.85rem;
+  }
+}
+
+.custom-shop-info-bar__inner {
+  padding-block: 0.5rem;
+}
+
+@media screen and (min-width: 750px) {
+  .custom-shop-info-bar__inner {
+    padding-block: 0.6rem;
+  }
+}
+
+.custom-shop-info-bar__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  align-items: baseline;
+}
+
+.custom-shop-info-bar--align-left   .custom-shop-info-bar__list { justify-content: flex-start; }
+.custom-shop-info-bar--align-center .custom-shop-info-bar__list { justify-content: center; }
+.custom-shop-info-bar--align-right  .custom-shop-info-bar__list { justify-content: flex-end; }
+
+.custom-shop-info-bar__item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5em;
+  position: relative;
+}
+
+/* 区切り（横並び時、項目間に細い縦線） */
+@media screen and (min-width: 750px) {
+  .custom-shop-info-bar__item + .custom-shop-info-bar__item::before {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 0.85em;
+    margin-inline-end: 1rem;
+    background-color: var(--custom-shop-info-bar-divider, var(--custom-color-gold));
+    opacity: 0.5;
+    align-self: center;
+  }
+}
+
+.custom-shop-info-bar__label {
+  font-size: 0.85em;
+  color: var(--custom-shop-info-bar-divider, var(--custom-color-gold));
+  letter-spacing: var(--custom-letter-spacing-wide);
+}
+
+.custom-shop-info-bar__value {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.custom-shop-info-bar__value:hover,
+a.custom-shop-info-bar__value:focus {
+  color: var(--custom-color-primary);
+  text-decoration: underline;
+}
+
+
 /* === custom-shop-info === */
 .custom-shop-info {
   font-family: var(--custom-font-mincho);

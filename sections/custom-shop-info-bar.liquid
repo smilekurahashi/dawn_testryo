@@ -1,0 +1,143 @@
+{% comment %}
+  custom-shop-info-bar.liquid
+  --------------------------------------------------------------------------
+  ヘッダー直下に表示する店舗情報バー。
+  営業時間・電話・定休日などの短いラベル+値のペアを
+  ブロックで自由に追加できるようにする。
+{% endcomment %}
+
+{%- if section.settings.show_bar and section.blocks.size > 0 -%}
+  <div
+    class="custom-shop-info-bar custom-shop-info-bar--align-{{ section.settings.alignment }}"
+    role="complementary"
+    aria-label="店舗情報"
+    style="
+      --custom-shop-info-bar-bg: {{ section.settings.bg_color }};
+      --custom-shop-info-bar-color: {{ section.settings.text_color }};
+      --custom-shop-info-bar-divider: {{ section.settings.divider_color }};
+    "
+  >
+    <div class="custom-shop-info-bar__inner page-width">
+      <ul class="custom-shop-info-bar__list" role="list">
+        {%- for block in section.blocks -%}
+          <li class="custom-shop-info-bar__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.label != blank -%}
+              <span class="custom-shop-info-bar__label">{{ block.settings.label | escape }}</span>
+            {%- endif -%}
+            {%- if block.settings.value != blank -%}
+              {%- if block.settings.link != blank -%}
+                <a class="custom-shop-info-bar__value" href="{{ block.settings.link }}">
+                  {{ block.settings.value | escape }}
+                </a>
+              {%- else -%}
+                <span class="custom-shop-info-bar__value">{{ block.settings.value | escape }}</span>
+              {%- endif -%}
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Shop Info Bar",
+  "tag": "aside",
+  "class": "custom-shop-info-bar-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_bar",
+      "label": "店舗情報バーを表示",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "背景色",
+      "default": "#F5F1EA"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "テキスト色",
+      "default": "#2B1810"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "区切り線・補足色",
+      "default": "#A87F3A"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "配置",
+      "options": [
+        { "value": "left", "label": "左寄せ" },
+        { "value": "center", "label": "中央" },
+        { "value": "right", "label": "右寄せ" }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "info_item",
+      "name": "情報項目",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "ラベル",
+          "default": "営業時間"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "値",
+          "default": "10:00 - 19:00"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "リンク先（任意）"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Shop Info Bar",
+      "blocks": [
+        {
+          "type": "info_item",
+          "settings": {
+            "label": "営業時間",
+            "value": "10:00 - 19:00"
+          }
+        },
+        {
+          "type": "info_item",
+          "settings": {
+            "label": "電話",
+            "value": "03-1234-5678"
+          }
+        },
+        {
+          "type": "info_item",
+          "settings": {
+            "label": "定休日",
+            "value": "水曜日"
+          }
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "groups": ["*"]
+  }
+}
+{% endschema %}

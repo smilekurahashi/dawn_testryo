@@ -160,7 +160,10 @@
                 }}
               </div>
             {%- else -%}
-              <span class="h2">{{ shop.name }}</span>
+              {%- comment %} CUSTOM START: 和風タイトル（游明朝＋創業サブテキスト） {% endcomment -%}
+              <span class="h2 custom-header__shop-name">{{ shop.name }}</span>
+              <span class="custom-header__tagline" aria-label="創業 昭和三十年">創業 昭和三十年</span>
+              {%- comment %} CUSTOM END {% endcomment -%}
             {%- endif -%}
           </a>
       {%- if request.page_type == 'index' -%}
@@ -200,7 +203,10 @@
                 }}
               </div>
             {%- else -%}
-              <span class="h2">{{ shop.name }}</span>
+              {%- comment %} CUSTOM START: 和風タイトル（游明朝＋創業サブテキスト） {% endcomment -%}
+              <span class="h2 custom-header__shop-name">{{ shop.name }}</span>
+              <span class="custom-header__tagline" aria-label="創業 昭和三十年">創業 昭和三十年</span>
+              {%- comment %} CUSTOM END {% endcomment -%}
             {%- endif -%}
           </a>
       {%- if request.page_type == 'index' -%}

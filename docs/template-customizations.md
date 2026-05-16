@@ -116,3 +116,53 @@ CLAUDE.mdの「原則1：既存ファイルの直接編集は最終手段」に�
   衝突しない。schema変更があった場合は `templates/product.json` の
   settings/blocks 側の追従が必要。
 - このドキュメント（`docs/template-customizations.md`）も合わせて更新する。
+
+---
+
+## sections/header.liquid
+
+### 変更概要
+
+ロゴ未設定時の店名表示部分に「創業 昭和三十年」サブテキストを差し込むため、
+`{%- else -%}` 分岐（`shop.name` フォールバック）を CUSTOM マーカー付きで編集。
+和風タイトル化・メニュー和文最適化・カラースキーム上書きは `assets/custom.css`
+での上書きのみで対応し、Liquid 本体への追加編集はサブテキスト挿入の1点のみ。
+
+### 編集箇所（2箇所、構造同一）
+
+`logo_position != 'middle-center'` と `logo_position == 'middle-center'` の
+それぞれの分岐に、同じスニペットを CUSTOM マーカー付きで挿入：
+
+```liquid
+{%- comment %} CUSTOM START: 和風タイトル（游明朝＋創業サブテキスト） {% endcomment -%}
+<span class="h2 custom-header__shop-name">{{ shop.name }}</span>
+<span class="custom-header__tagline" aria-label="創業 昭和三十年">創業 昭和三十年</span>
+{%- comment %} CUSTOM END {% endcomment -%}
+```
+
+### Dawn アップデート時の注意点
+
+- 該当の `{%- else -%}` 分岐は Dawn 公式が稀に変更する箇所。merge 時は
+  `header__heading-link` の構造変更を確認し、CUSTOM マーカー間のコードを
+  新しい構造内へ再配置する。
+- 検索キーワード：`<span class="h2">{{ shop.name }}</span>`（2箇所）。
+
+---
+
+## layout/theme.liquid
+
+### 変更概要
+
+ヘッダー直下に店舗情報バー（`custom-shop-info-bar`）を常設するため、
+`{% sections 'header-group' %}` の直後に `{% section 'custom-shop-info-bar' %}`
+を CUSTOM マーカー付きで追加。
+
+### Dawn アップデート時の注意点
+
+- `theme.liquid` の編集は計4ブロック（カスタムマーカー検索で識別可能）：
+  1. `</head>` 直前の `custom.css` 読み込み
+  2. `<body>` 直後の `custom-heritage-bar`
+  3. `header-group` 直後の `custom-shop-info-bar`
+  4. `</body>` 直前の `custom.js` 読み込み
+- いずれも数行の挿入で構造的依存は低いが、Dawn 側で `header-group` の
+  レンダリング位置が変わった場合は (3) の再配置が必要。
