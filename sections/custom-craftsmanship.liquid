@@ -1,0 +1,157 @@
+{% comment %}
+  custom-craftsmanship.liquid
+  --------------------------------------------------------------------------
+  「職人のこだわり」を3つ並べて見せる汎用セクション。
+  商品ページ・Aboutページ・トップページで共用可能。
+{% endcomment %}
+
+{%- liquid
+  assign bg_class = 'custom-craftsmanship--bg-' | append: section.settings.bg_color
+  assign divider_class = 'custom-craftsmanship--divider-' | append: section.settings.divider_style
+  assign block_count = section.blocks.size
+  assign count_class = 'custom-craftsmanship--count-' | append: block_count
+-%}
+
+<section
+  class="custom-craftsmanship {{ bg_class }} {{ divider_class }} {{ count_class }}"
+  {% if section.settings.heading != blank %}
+    aria-labelledby="CustomCraftsmanshipHeading-{{ section.id }}"
+  {% endif %}
+>
+  <div class="custom-craftsmanship__inner page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2
+        id="CustomCraftsmanshipHeading-{{ section.id }}"
+        class="custom-craftsmanship__heading"
+      >
+        {{ section.settings.heading | escape }}
+      </h2>
+    {%- endif -%}
+
+    {%- if block_count > 0 -%}
+      <ul class="custom-craftsmanship__list" role="list">
+        {%- for block in section.blocks -%}
+          <li class="custom-craftsmanship__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.symbol != blank -%}
+              <span class="custom-craftsmanship__symbol" aria-hidden="true">
+                {{ block.settings.symbol | escape }}
+              </span>
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              <h3 class="custom-craftsmanship__item-title">
+                {{ block.settings.title | escape }}
+              </h3>
+            {%- endif -%}
+
+            {%- if block.settings.description != blank -%}
+              <p class="custom-craftsmanship__description">
+                {{ block.settings.description | newline_to_br }}
+              </p>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Craftsmanship",
+  "tag": "section",
+  "class": "custom-craftsmanship-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "セクション見出し",
+      "default": "職人の手仕事"
+    },
+    {
+      "type": "select",
+      "id": "bg_color",
+      "label": "背景色",
+      "options": [
+        { "value": "base", "label": "オフホワイト" },
+        { "value": "paper", "label": "和紙風ベージュ" },
+        { "value": "accent", "label": "濃茶（アクセント）" },
+        { "value": "transparent", "label": "透明" }
+      ],
+      "default": "base"
+    },
+    {
+      "type": "select",
+      "id": "divider_style",
+      "label": "区切り線スタイル",
+      "options": [
+        { "value": "none", "label": "なし" },
+        { "value": "vertical", "label": "縦線" },
+        { "value": "ornament", "label": "装飾罫線" }
+      ],
+      "default": "vertical"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "craft_item",
+      "name": "こだわり項目",
+      "settings": [
+        {
+          "type": "text",
+          "id": "symbol",
+          "label": "装飾文字（漢数字など）",
+          "default": "壱"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "小見出し",
+          "default": "目利き"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "説明文",
+          "default": "全国の生産者と直接向き合い、確かな品質の素材だけを選び抜きます。"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Craftsmanship",
+      "blocks": [
+        {
+          "type": "craft_item",
+          "settings": {
+            "symbol": "壱",
+            "title": "目利き",
+            "description": "全国の生産者と直接向き合い、確かな品質の素材だけを選び抜きます。"
+          }
+        },
+        {
+          "type": "craft_item",
+          "settings": {
+            "symbol": "弐",
+            "title": "熟成",
+            "description": "肉本来の旨みを引き出すため、一品ごとに最適な熟成期間を見極めます。"
+          }
+        },
+        {
+          "type": "craft_item",
+          "settings": {
+            "symbol": "参",
+            "title": "手切り",
+            "description": "繊維の方向を読み取り、職人がその日の状態に合わせて手作業で仕立てます。"
+          }
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": ["*"]
+  }
+}
+{% endschema %}

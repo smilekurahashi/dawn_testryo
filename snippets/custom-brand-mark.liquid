@@ -1,0 +1,29 @@
+{% comment %}
+  custom-brand-mark.liquid
+  --------------------------------------------------------------------------
+  「創業 一九五五年」を表示する小さな装飾コンポーネント。
+  和の風格を出すため、年号は漢数字で表記する。
+
+  Parameters:
+    size  : small | medium | large  (default: medium)
+    color : gold  | primary | base   (default: gold)
+    align : left  | center  | right  (default: center)
+
+  Usage:
+    {% render 'custom-brand-mark' %}
+    {% render 'custom-brand-mark', size: 'small', color: 'gold' %}
+    {% render 'custom-brand-mark', size: 'large', color: 'primary', align: 'left' %}
+{% endcomment %}
+
+{%- liquid
+  assign mark_size = size | default: 'medium'
+  assign mark_color = color | default: 'gold'
+  assign mark_align = align | default: 'center'
+-%}
+
+<div class="custom-brand-mark-wrapper custom-brand-mark-wrapper--{{ mark_align }}">
+  <span class="custom-brand-mark custom-brand-mark--{{ mark_size }} custom-brand-mark--{{ mark_color }}">
+    <span class="custom-brand-mark__label">創業</span>
+    <span class="custom-brand-mark__year">一九五五年</span>
+  </span>
+</div>
